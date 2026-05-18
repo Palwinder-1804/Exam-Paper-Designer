@@ -1,0 +1,32 @@
+{
+  "template_name": "CDS",
+  "exam_version": "2025",
+  "paper_title": "CDS (IMA) WRITTEN EXAM PATTERN",
+  "duration": "2 Hours per paper",
+  "maximum_marks": 300,
+  "instructions": "Objective type paper pattern for CDS IMA/INA/AFA track.",
+  "marking_scheme": {
+    "negative_marking": 0.33,
+    "note": "One-third mark deducted for each wrong answer."
+  },
+  "sections": [
+    {
+      "section": "A-ENGLISH",
+      "type": "MCQ",
+      "marks": 0.8333,
+      "count": 120
+    },
+    {
+      "section": "B-GENERAL_KNOWLEDGE",
+      "type": "MCQ",
+      "marks": 0.8333,
+      "count": 120
+    },
+    {
+      "section": "C-ELEMENTARY_MATHEMATICS",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 100
+    }
+  ]
+}

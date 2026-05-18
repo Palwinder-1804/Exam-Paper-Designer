@@ -1,0 +1,63 @@
+{
+  "template_name": "CBSE Class 12",
+  "category": "board",
+  "description": "CBSE Class 12 theory paper — MCQ, very short, short, case-based, and long answer sections.",
+  "exam_version": "2025",
+  "paper_title": "CBSE CLASS XII — BOARD EXAMINATION (THEORY)",
+  "duration": "3 Hours",
+  "maximum_marks": 80,
+  "instructions": "1. All questions are compulsory.\n2. Read each question carefully before answering.\n3. Figures to the right indicate full marks.\n4. Use of calculator is not permitted unless stated.",
+  "marking_scheme": { "negative_marking": 0 },
+  "generation": { "max_questions": 18, "full_max_questions": 38 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "Section A — Multiple Choice Questions",
+      "section_instruction": "Each question carries 1 mark. Select the correct option.",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 20,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "Section B — Very Short Answer",
+      "section_instruction": "Answer in 40-60 words. Each question carries 2 marks.",
+      "type": "VERY_SHORT",
+      "marks": 2,
+      "count": 6
+    },
+    {
+      "section": "C",
+      "section_title": "Section C — Short Answer",
+      "section_instruction": "Answer in 60-80 words. Each question carries 3 marks.",
+      "type": "SHORT",
+      "marks": 3,
+      "count": 6
+    },
+    {
+      "section": "D",
+      "section_title": "Section D — Case Based / Source Based",
+      "section_instruction": "Read the passage and answer the sub-questions. Each question carries 4 marks.",
+      "type": "CASE_BASED",
+      "marks": 4,
+      "count": 3
+    },
+    {
+      "section": "E",
+      "section_title": "Section E — Long Answer",
+      "section_instruction": "Answer in detail with diagrams where necessary.",
+      "type": "LONG",
+      "marks": 5,
+      "count": 2
+    },
+    {
+      "section": "F",
+      "section_title": "Section F — Extended Response",
+      "section_instruction": "Answer with proper derivation / explanation. (8 marks)",
+      "type": "LONG",
+      "marks": 8,
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "template_name": "CAT",
+  "exam_version": "2024",
+  "paper_title": "COMMON ADMISSION TEST (CAT)",
+  "duration": "2 Hours",
+  "maximum_marks": 198,
+  "instructions": "The question paper consists of 66 questions. 3 marks for each correct answer, and -1 for incorrect MCQ.",
+  "marking_scheme": {
+    "negative_marking": 1
+  },
+  "sections": [
+    {
+      "section": "A-VARC",
+      "type": "MCQ",
+      "marks": 3,
+      "count": 24
+    },
+    {
+      "section": "B-DILR",
+      "type": "CASE_BASED",
+      "marks": 3,
+      "count": 20
+    },
+    {
+      "section": "C-QA",
+      "type": "NUMERICAL",
+      "marks": 3,
+      "count": 22
+    }
+  ]
+}

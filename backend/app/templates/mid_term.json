@@ -1,0 +1,39 @@
+{
+  "template_name": "Mid-Term Test",
+  "category": "school",
+  "description": "Compact mid-term class test — quick to generate, ideal for unit assessments.",
+  "exam_version": "2025",
+  "paper_title": "MID-TERM EXAMINATION",
+  "duration": "1 Hour 30 Minutes",
+  "maximum_marks": 30,
+  "instructions": "1. All questions are compulsory.\n2. Write neat and legibly.\n3. Marks are indicated against each question.",
+  "marking_scheme": { "negative_marking": 0 },
+  "generation": { "max_questions": 12, "full_max_questions": 12 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "Section A — One Word / MCQ",
+      "section_instruction": "1 mark each.",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 5,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "Section B — Short Answer",
+      "section_instruction": "3 marks each.",
+      "type": "SHORT",
+      "marks": 3,
+      "count": 5
+    },
+    {
+      "section": "C",
+      "section_title": "Section C — Long Answer",
+      "section_instruction": "5 marks each.",
+      "type": "LONG",
+      "marks": 5,
+      "count": 2
+    }
+  ]
+}

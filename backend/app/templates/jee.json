@@ -1,0 +1,61 @@
+{
+  "template_name": "JEE Main",
+  "category": "entrance",
+  "description": "JEE Main Paper 1 pattern — Physics, Chemistry, Mathematics with MCQ and numerical sections.",
+  "exam_version": "2025",
+  "paper_title": "JOINT ENTRANCE EXAMINATION (MAIN) — PAPER 1",
+  "duration": "3 Hours",
+  "maximum_marks": 300,
+  "instructions": "1. The test is of 3 hours duration.\n2. This paper consists of Physics, Chemistry and Mathematics sections.\n3. Each correct answer: +4 marks. Each incorrect answer: -1 mark.",
+  "marking_scheme": { "negative_marking": 1, "note": "−1 mark for each incorrect MCQ/numerical response." },
+  "generation": { "max_questions": 20, "full_max_questions": 75 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "Physics — Multiple Choice",
+      "section_instruction": "Questions 1-20: Four options, only one correct (+4, −1).",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 20,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "Physics — Numerical Value",
+      "section_instruction": "Numerical answer rounded to nearest integer (+4, −1).",
+      "type": "NUMERICAL",
+      "marks": 4,
+      "count": 5
+    },
+    {
+      "section": "C",
+      "section_title": "Chemistry — Multiple Choice",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 20,
+      "options": 4
+    },
+    {
+      "section": "D",
+      "section_title": "Chemistry — Numerical Value",
+      "type": "NUMERICAL",
+      "marks": 4,
+      "count": 5
+    },
+    {
+      "section": "E",
+      "section_title": "Mathematics — Multiple Choice",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 20,
+      "options": 4
+    },
+    {
+      "section": "F",
+      "section_title": "Mathematics — Numerical Value",
+      "type": "NUMERICAL",
+      "marks": 4,
+      "count": 5
+    }
+  ]
+}

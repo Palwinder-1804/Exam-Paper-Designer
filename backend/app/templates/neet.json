@@ -1,0 +1,47 @@
+{
+  "template_name": "NEET UG",
+  "category": "entrance",
+  "description": "NEET UG pattern — Physics, Chemistry, Botany, Zoology objective sections.",
+  "exam_version": "2025",
+  "paper_title": "NATIONAL ELIGIBILITY CUM ENTRANCE TEST (UG)",
+  "duration": "3 Hours 20 Minutes",
+  "maximum_marks": 720,
+  "instructions": "1. Each question carries 4 marks.\n2. For each incorrect response, one mark will be deducted.\n3. Use blue/black ball point pen only on OMR.",
+  "marking_scheme": { "negative_marking": 1 },
+  "generation": { "max_questions": 20, "full_max_questions": 180 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "Physics",
+      "section_instruction": "Questions 1-45 (scaled in quick mode).",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 45,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "Chemistry",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 45,
+      "options": 4
+    },
+    {
+      "section": "C",
+      "section_title": "Botany",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 45,
+      "options": 4
+    },
+    {
+      "section": "D",
+      "section_title": "Zoology",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 45,
+      "options": 4
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "template_name": "UPSC Prelims",
+  "category": "competitive",
+  "description": "UPSC CSE Prelims GS Paper-I objective pattern.",
+  "exam_version": "2025",
+  "paper_title": "UPSC CIVIL SERVICES (PRELIMINARY) — GENERAL STUDIES PAPER I",
+  "duration": "2 Hours",
+  "maximum_marks": 200,
+  "instructions": "1. There are 100 questions printed both in English and Hindi.\n2. Each item carries 2 marks.\n3. Penalty for wrong answers: one-third of 2 marks.",
+  "marking_scheme": {
+    "negative_marking": 0.66,
+    "note": "One-third of the marks assigned to the question deducted for each wrong answer."
+  },
+  "generation": { "max_questions": 25, "full_max_questions": 100 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "General Studies — Paper I",
+      "section_instruction": "Select the most appropriate answer. Each question: 2 marks.",
+      "type": "MCQ",
+      "marks": 2,
+      "count": 100,
+      "options": 4
+    }
+  ]
+}

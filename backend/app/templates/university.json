@@ -1,0 +1,39 @@
+{
+  "template_name": "University Semester",
+  "category": "university",
+  "description": "Standard university end-semester theory paper — Part A objective, Part B short, Part C long.",
+  "exam_version": "2025",
+  "paper_title": "END SEMESTER EXAMINATION",
+  "duration": "3 Hours",
+  "maximum_marks": 70,
+  "instructions": "1. Answer all questions.\n2. Part A is compulsory.\n3. In Part B, answer any 4 out of 6.\n4. In Part C, answer any 2 out of 3.",
+  "marking_scheme": { "negative_marking": 0 },
+  "generation": { "max_questions": 16, "full_max_questions": 16 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "Part A — Objective (Compulsory)",
+      "section_instruction": "Answer all 10 questions. 1 mark each.",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 10,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "Part B — Short Answer",
+      "section_instruction": "Answer any 4 of the following 6 questions. 5 marks each.",
+      "type": "SHORT",
+      "marks": 5,
+      "count": 6
+    },
+    {
+      "section": "C",
+      "section_title": "Part C — Long Answer",
+      "section_instruction": "Answer any 2 of the following 3 questions. 10 marks each.",
+      "type": "LONG",
+      "marks": 10,
+      "count": 3
+    }
+  ]
+}

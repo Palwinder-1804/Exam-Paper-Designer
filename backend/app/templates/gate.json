@@ -1,0 +1,46 @@
+{
+  "template_name": "GATE",
+  "category": "entrance",
+  "description": "GATE pattern — General Aptitude plus core subject MCQ and numerical questions.",
+  "exam_version": "2025",
+  "paper_title": "GRADUATE APTITUDE TEST IN ENGINEERING (GATE)",
+  "duration": "3 Hours",
+  "maximum_marks": 100,
+  "instructions": "1. Total 65 questions.\n2. Questions carry 1 or 2 marks.\n3. Negative marking: 1/3 for 1-mark and 2/3 for 2-mark wrong answers.",
+  "marking_scheme": { "negative_marking": 0.33 },
+  "generation": { "max_questions": 20, "full_max_questions": 65 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "General Aptitude (1 mark)",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 5,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "General Aptitude (2 marks)",
+      "type": "MCQ",
+      "marks": 2,
+      "count": 5,
+      "options": 4
+    },
+    {
+      "section": "C",
+      "section_title": "Core Subject — 1 Mark Questions",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 25,
+      "options": 4
+    },
+    {
+      "section": "D",
+      "section_title": "Core Subject — Numerical Answer Type",
+      "section_instruction": "Enter numerical value; no choices provided.",
+      "type": "NUMERICAL",
+      "marks": 2,
+      "count": 30
+    }
+  ]
+}

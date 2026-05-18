@@ -1,0 +1,26 @@
+{
+  "template_name": "NDA",
+  "exam_version": "2025",
+  "paper_title": "NDA WRITTEN EXAM PATTERN",
+  "duration": "2.5 Hours per paper",
+  "maximum_marks": 900,
+  "instructions": "Objective pattern aligned to NDA written exam (Mathematics + GAT).",
+  "marking_scheme": {
+    "negative_marking": 0.33,
+    "note": "One-third mark deducted for each wrong answer."
+  },
+  "sections": [
+    {
+      "section": "A-MATHEMATICS",
+      "type": "MCQ",
+      "marks": 2.5,
+      "count": 120
+    },
+    {
+      "section": "B-GAT",
+      "type": "MCQ",
+      "marks": 4,
+      "count": 150
+    }
+  ]
+}

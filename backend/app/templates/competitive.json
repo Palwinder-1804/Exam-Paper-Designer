@@ -1,0 +1,39 @@
+{
+  "template_name": "SSC / Banking",
+  "category": "competitive",
+  "description": "General competitive exam pattern — reasoning, quantitative, and general awareness.",
+  "exam_version": "2025",
+  "paper_title": "COMPETITIVE EXAMINATION — COMBINED TEST",
+  "duration": "2 Hours",
+  "maximum_marks": 100,
+  "instructions": "1. Total 100 questions.\n2. Each question carries 1 mark.\n3. Negative marking: 0.25 per wrong answer.",
+  "marking_scheme": { "negative_marking": 0.25 },
+  "generation": { "max_questions": 20, "full_max_questions": 100 },
+  "sections": [
+    {
+      "section": "A",
+      "section_title": "Reasoning Ability",
+      "section_instruction": "1 mark each. Four options.",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 35,
+      "options": 4
+    },
+    {
+      "section": "B",
+      "section_title": "Quantitative Aptitude",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 35,
+      "options": 4
+    },
+    {
+      "section": "C",
+      "section_title": "General Awareness",
+      "type": "MCQ",
+      "marks": 1,
+      "count": 30,
+      "options": 4
+    }
+  ]
+}
