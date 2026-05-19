@@ -10,6 +10,7 @@ from app.config import DB_PATH, OUTPUT_DIR
 from app.core.template_engine import load_template, build_question_plan
 from app.core.question_generator import generate_questions
 from app.core.answer_generator import generate_answers
+from app.core.instant_generator import generate_questions_instant, generate_answers_instant
 from app.core.formatter import format_paper, format_paper_blocks, format_answers
 from app.services.export_service import export_pdf, export_docx
 from models.request_models import GenerateRequest
@@ -38,14 +39,20 @@ def generate(body: GenerateRequest):
         raise HTTPException(status_code=400, detail="Template has no questions configured.")
 
     t_plan = time.perf_counter()
-    questions = generate_questions(plan, difficulty=body.difficulty)
+    if body.use_llm:
+        questions = generate_questions(plan, difficulty=body.difficulty)
+    else:
+        questions = generate_questions_instant(plan, difficulty=body.difficulty)
     t_questions = time.perf_counter()
 
     answers = []
     answer_key = ""
     answer_pdf = ""
     if body.include_answers:
-        answers = generate_answers(questions)
+        if body.use_llm:
+            answers = generate_answers(questions)
+        else:
+            answers = generate_answers_instant(questions)
         answer_key = format_answers(answers, template_data)
     t_answers = time.perf_counter()
 
@@ -64,6 +71,10 @@ def generate(body: GenerateRequest):
         exam_date=body.exam_date,
     )
     t_format = time.perf_counter()
+
+    for q in questions:
+        q.pop("_instant", None)
+        q.pop("_instant_mcq_correct_index", None)
 
     uid = uuid.uuid4().hex[:8]
 
@@ -98,6 +109,7 @@ def generate(body: GenerateRequest):
             "full_paper": body.full_paper,
             "difficulty": body.difficulty,
             "include_answers": body.include_answers,
+            "use_llm": body.use_llm,
             "timing_seconds": {
                 "questions": round(t_questions - t_plan, 1),
                 "answers": round(t_answers - t_questions, 1) if body.include_answers else 0,
