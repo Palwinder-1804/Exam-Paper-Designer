@@ -1,9 +1,8 @@
 import os
 
 # LLM
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "phi3:mini")
+HF_MODEL = os.getenv("HF_MODEL", "Qwen/Qwen2.5-7B-Instruct")
 MAX_PARALLEL_LLM = int(os.getenv("MAX_PARALLEL_LLM", "4"))
-OLLAMA_NUM_CTX = int(os.getenv("OLLAMA_NUM_CTX", "2048"))
 
 # Generation speed vs quality
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "2"))

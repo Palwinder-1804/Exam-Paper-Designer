@@ -5,14 +5,13 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List, Optional, Tuple
 
-from langchain_ollama import ChatOllama
+from app.core.hf_client import HuggingFaceLLM
 
 from app.config import (
     CONTEXT_MAX_CHARS,
     MAX_PARALLEL_LLM,
     MAX_RETRIES,
-    OLLAMA_MODEL,
-    OLLAMA_NUM_CTX,
+    HF_MODEL,
     PARALLEL_QUESTIONS,
     QUESTION_BATCH_SIZE,
     RETRIEVAL_K,
@@ -28,17 +27,16 @@ from app.services.retrieval_service import retrieve
 
 FIGURES_JSON_PATH = "app/static/figures/current/figures.json"
 
-_llm: ChatOllama | None = None
+_llm: HuggingFaceLLM | None = None
 _state_lock = threading.Lock()
 
 
-def _get_llm() -> ChatOllama:
+def _get_llm() -> HuggingFaceLLM:
     global _llm
     if _llm is None:
-        _llm = ChatOllama(
-            model=OLLAMA_MODEL,
+        _llm = HuggingFaceLLM(
+            model=HF_MODEL,
             temperature=0.35,
-            num_ctx=OLLAMA_NUM_CTX,
             format="json",
         )
     return _llm
@@ -193,9 +191,9 @@ def _build_prompt(
     common_rules = """
 STRICT RULES:
 - Write a complete, logical examination question — not a syllabus excerpt.
-- NEVER write only "Refer to Fig/ Figure X" — if a diagram is needed, set requires_figure=true and use figure_id from the provided list.
-- Do NOT invent figure numbers like "Fig. 13.15" in text.
-- NEVER mention any figure numbers (e.g., "Fig. 13.15", "Figure 1") in the question text. If the syllabus context contains figure numbers, REMOVE or REWRITE them to refer generally to "the diagram" or "the graph".
+- Do NOT generate questions that are diagram-based or require referring to any figure, graph, chart, or image.
+- NEVER mention any figures, diagrams, tables, or illustrations.
+- All questions must be fully answerable using plain text only. Do NOT refer to "the diagram", "the graph", "the figure", or any specific figure IDs.
 - Must end with a question (? mark) or sub-parts (a), (b) each asking something.
 - No copy-paste from context; test understanding/application.
 - Output ONLY valid JSON, no markdown.
@@ -209,13 +207,10 @@ STRICT RULES:
     {"label": "a", "text": "First question with ?"},
     {"label": "b", "text": "Second question with ?"}
   ],
-  "requires_figure": true/false,
-  "figure_id": "fig_0001 or null",
-  "figure_caption": "optional caption",
   "fingerprint": "short concept tag"
 }
 """
-        extra = "- Include requires_figure=true and a valid figure_id if the case involves graphs, motion diagrams, circuits, or labeled diagrams."
+        extra = ""
     elif item_type == "MCQ":
         schema = f"""
 {{
@@ -231,12 +226,10 @@ STRICT RULES:
         schema = """
 {
   "fingerprint": "...",
-  "requires_figure": true/false,
-  "figure_id": "fig_0001 or null",
   "blocks": [{"type":"text","text":"Full question ending with ?"}]
 }
 """
-        extra = "- For graph/diagram-based topics, set requires_figure=true and pick figure_id from list."
+        extra = ""
 
     avoid = f"\nAvoid these concepts already used: {', '.join(prev_fps) or 'none'}."
     retry = f"\nFIX PREVIOUS ERROR: {retry_reason}" if retry_reason else ""
@@ -244,8 +237,6 @@ STRICT RULES:
     return f"""
 Generate ONE {item_type} question ({marks} marks, {difficulty} difficulty).
 Section: {item['section']}
-
-Available figure IDs (use only these if requires_figure=true): {figure_ids[:15]}
 
 {common_rules}
 {extra}
@@ -276,9 +267,9 @@ def _build_batch_prompt(
     common_rules = """
 STRICT RULES for each question:
 - Write a complete, logical examination question — not a syllabus excerpt.
-- NEVER write only "Refer to Fig/ Figure X" — if a diagram is needed, set requires_figure=true and use figure_id from the provided list.
-- Do NOT invent figure numbers like "Fig. 13.15" in text.
-- NEVER mention any figure numbers (e.g., "Fig. 13.15", "Figure 1") in the question text. If the syllabus context contains figure numbers, REMOVE or REWRITE them to refer generally to "the diagram" or "the graph".
+- Do NOT generate questions that are diagram-based or require referring to any figure, graph, chart, or image.
+- NEVER mention any figures, diagrams, tables, or illustrations.
+- All questions must be fully answerable using plain text only. Do NOT refer to "the diagram", "the graph", "the figure", or any specific figure IDs.
 - Must end with a question (? mark) or sub-parts (a), (b) each asking something.
 - No copy-paste from context; test understanding/application.
 """
@@ -291,9 +282,6 @@ STRICT RULES for each question:
     {"label": "a", "text": "First question with ?"},
     {"label": "b", "text": "Second question with ?"}
   ],
-  "requires_figure": true/false,
-  "figure_id": "fig_0001 or null",
-  "figure_caption": "optional caption",
   "fingerprint": "short concept tag"
 }
 """
@@ -311,8 +299,6 @@ STRICT RULES for each question:
         schema = """
 {
   "fingerprint": "...",
-  "requires_figure": true/false,
-  "figure_id": "fig_0001 or null",
   "blocks": [{"type":"text","text":"Full question ending with ?"}]
 }
 """
@@ -333,7 +319,6 @@ Return ONLY JSON matching this format:
 
 {common_rules}
 {avoid}
-Figure IDs if needed: {figure_ids[:12]}
 
 Context:
 {context[:CONTEXT_MAX_CHARS]}
@@ -384,14 +369,7 @@ def _finalize_question(
         if fp in used_fingerprints or any(similarity(text, t) > 0.72 for t in used_texts):
             return None
 
-    want_fig = (parsed or {}).get("requires_figure") is True or needs_diagram(item_type, text)
-    if want_fig and valid_ids and not any(b.get("type") == "figure" for b in blocks):
-        fid = allocator.allocate(allocator.page_from_context(""))
-        if fid:
-            blocks = attach_figure_block(
-                blocks, fid, "Study the figure below.",
-                before_subquestions=item_type == "CASE_BASED",
-            )
+    want_fig = False
 
     ok, _ = validate_question(blocks, item_type, require_figure=want_fig and bool(valid_ids))
     if not ok:
@@ -506,20 +484,7 @@ def _generate_one(
             last_reason = "Duplicate or too similar to another question"
             continue
 
-        # Auto-attach figure when needed
-        want_fig = (parsed or {}).get("requires_figure") is True or needs_diagram(
-            item_type, text
-        )
-        if want_fig and valid_ids and not any(b.get("type") == "figure" for b in blocks):
-            page = allocator.page_from_context(context)
-            fid = allocator.allocate(page)
-            if fid:
-                blocks = attach_figure_block(
-                    blocks,
-                    fid,
-                    "Study the figure below.",
-                    before_subquestions=item_type == "CASE_BASED",
-                )
+        want_fig = False
 
         ok, reason = validate_question(
             blocks,

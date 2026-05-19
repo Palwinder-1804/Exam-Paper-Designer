@@ -1,5 +1,4 @@
 from fastapi import APIRouter, UploadFile
-from app.core.instant_generator import clear_chunk_cache
 from app.services.document_service import process_document
 from app.services.embedding_service import create_vector_store
 from app.services.figure_extraction_service import extract_figures
@@ -21,7 +20,6 @@ def upload(file: UploadFile):
         # Refresh cached vector store so generation uses the new upload.
         state.index = None
         state.chunks = None
-        clear_chunk_cache()
 
         from concurrent.futures import ThreadPoolExecutor
         chunks = process_document(temp_path)

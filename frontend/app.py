@@ -86,11 +86,7 @@ with st.sidebar:
         help="Skip for fastest run — answers roughly double generation time.",
     )
     export_docx = st.checkbox("Export DOCX", value=True)
-    use_llm = st.checkbox(
-        "Use Ollama AI for questions (slow on i5 / 8GB RAM)",
-        value=False,
-        help="Off = instant paper from syllabus text in seconds. On = better wording, needs Ollama running.",
-    )
+
     st.divider()
     st.caption(f"API: `{API_BASE}`")
 
@@ -178,7 +174,7 @@ if st.button("Generate exam paper", type="primary", use_container_width=True):
             "max_questions": None if full_paper else max_q,
             "include_answers": include_answers,
             "export_docx": export_docx,
-            "use_llm": use_llm,
+            "use_llm": True,
         }
         with st.spinner("Generating questions in parallel (may take a few minutes)…"):
             try:

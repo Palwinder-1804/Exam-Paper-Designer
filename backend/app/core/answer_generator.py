@@ -3,20 +3,19 @@ import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List
 
-from langchain_ollama import ChatOllama
+from app.core.hf_client import HuggingFaceLLM
 
-from app.config import ANSWER_BATCH_SIZE, MAX_PARALLEL_LLM, OLLAMA_MODEL, OLLAMA_NUM_CTX
+from app.config import ANSWER_BATCH_SIZE, MAX_PARALLEL_LLM, HF_MODEL
 
-_llm: ChatOllama | None = None
+_llm: HuggingFaceLLM | None = None
 
 
-def _get_llm() -> ChatOllama:
+def _get_llm() -> HuggingFaceLLM:
     global _llm
     if _llm is None:
-        _llm = ChatOllama(
-            model=OLLAMA_MODEL,
+        _llm = HuggingFaceLLM(
+            model=HF_MODEL,
             temperature=0.2,
-            num_ctx=OLLAMA_NUM_CTX,
         )
     return _llm
 
